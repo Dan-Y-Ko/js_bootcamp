@@ -15,6 +15,11 @@ const todos = [{
     completed: true
 }];
 
+const filters =
+{
+    searchText: ''
+}
+
 /*const paragraphs = document.querySelectorAll('p');
 
 paragraphs.forEach(paragraph =>
@@ -34,14 +39,39 @@ const summary = document.createElement('h2');
 summary.textContent = `You have ${incompleteTodos.length} todos left`;
 document.querySelector('body').appendChild(summary);
 
-const todoArray = todos.forEach(todo =>
+/*const todoArray = todos.forEach(todo =>
 {
     const todoList = document.createElement('p');
     todoList.textContent = todo.text;
-    document.querySelector('body').appendChild(todoList);
-});
+    document.querySelector('#render-todo').appendChild(todoList);
+}); */
 
 document.querySelector('#new-todo').addEventListener('click', () =>
 {
     console.log('adding new todo');
 });
+
+document.querySelector('#input-todo').addEventListener('input', e =>
+{
+    filters.searchText = e.target.value;
+    renderTodo(todos, filters)
+});
+
+const renderTodo = (todos, filters) =>
+{
+    const filteredTodo = todos.filter(todo =>
+    {
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
+    })
+
+    document.querySelector('#render-todo').innerHTML = '';
+
+    filteredTodo.forEach(todo =>
+    {
+        const todoList = document.createElement('p');
+        todoList.textContent = todo.text;
+        document.querySelector('#render-todo').appendChild(todoList); 
+    })
+};
+
+renderTodo(todos, filters);
