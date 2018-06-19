@@ -1,30 +1,25 @@
-const notes = [{
-    title: 'my next trip',
-    body: 'I would like to go to Spain'
-}, {
-    title: 'Habbits to work on',
-    body: 'Exercise. Eating a bit better.'
-}, {
-    title: 'Office modification',
-    body: 'Get a new seat'
-}]
+const notes = getSavedNotes()
 
-// DOM - Document Object Model
+const filters = {
+    searchText: ''
+}
 
-// Query and remove
-// const p = document.querySelector('p')
-// p.remove()
+renderNotes(notes, filters)
 
-// Query all and remove
-const ps = document.querySelectorAll('p')
-
-ps.forEach(function (p) {
-    p.textContent = '******'
-    // console.log(p.textContent)
-    // p.remove()
+document.querySelector('#create-note').addEventListener('click', function (e) {
+    notes.push({
+        title: '',
+        body: ''
+    })
+    saveNotes(notes)
+    renderNotes(notes, filters)
 })
 
-// Add a new element
-const newParagraph = document.createElement('p')
-newParagraph.textContent = 'This is a new element from JavaScript'
-document.querySelector('body').appendChild(newParagraph)
+document.querySelector('#search-text').addEventListener('input', function (e) {
+    filters.searchText = e.target.value
+    renderNotes(notes, filters)
+})
+
+document.querySelector('#filter-by').addEventListener('change', function (e) {
+    console.log(e.target.value)
+})
