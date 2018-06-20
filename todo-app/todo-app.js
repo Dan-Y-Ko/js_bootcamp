@@ -1,57 +1,30 @@
-let todos = getSavedTodos();
+let todos = getSavedTodos()
 
-const filters =
-{
+/* const filters = {
     searchText: '',
     hideCompleted: false
-}
+} */
 
-/*const paragraphs = document.querySelectorAll('p');
+renderTodos(todos)
 
-paragraphs.forEach(paragraph =>
-{
-    if (paragraph.textContent.includes('the'))
-    {
-        paragraph.remove();
-    }
-}); */
-
-/*const todoArray = todos.forEach(todo =>
-{
-    const todoList = document.createElement('p');
-    todoList.textContent = todo.text;
-    document.querySelector('#render-todo').appendChild(todoList);
-}); */
-renderTodos(todos, filters);
-
-/*document.querySelector('#new-todo').addEventListener('click', () =>
-{
-    console.log('adding new todo');
-});*/
-
-document.querySelector('#search-text').addEventListener('input', e =>
-{
-    filters.searchText = e.target.value;
+/*document.querySelector('#search-text').addEventListener('input', function (e) {
+    filters.searchText = e.target.value
     renderTodos(todos, filters)
-});
+}) */
 
-document.querySelector('#new-todo').addEventListener('submit', e =>
-{
-    e.preventDefault();
-
+document.querySelector('#new-todo').addEventListener('submit', function (e) {
+    e.preventDefault()
     todos.push({
+        id: uuidv4(),
         text: e.target.elements.text.value,
         completed: false
-    });
+    })
+    saveTodos(todos)
+    renderTodos(todos)
+    e.target.elements.text.value = ''
+})
 
-    saveTodos(todos);
+/*document.querySelector('#hide-completed').addEventListener('change', function (e) {
+    filters.hideCompleted = e.target.checked
     renderTodos(todos, filters)
-
-    e.target.elements.text.value= '';
-});
-
-document.querySelector('#hide-completed').addEventListener('change', e=>
-{
-    filters.hideCompleted = e.target.checked;
-    renderTodos(todos, filters);
-});
+})*/
